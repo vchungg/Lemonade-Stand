@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "keyboard.h"
 #include "xterm_control.h"
@@ -89,15 +91,25 @@ void instructions(int col, int row, int c) {
 }
 
 void play(int col, int row, int c) {
-    int daysCounter = 0;
+    int daysCounter = 1;
+    
+    
+    // buying ingredients:
     int numLem, numIce, numSug, numCup;
-    char *lemons[10], *ice[10], *sugar[10], *cups[10];
+    char lemons[10], ice[10], sugar[10], cups[10];
     int lemonsCounter = 0;
     int iceCounter = 0;
     int sugarCounter = 0;
     int cupsCounter = 0;
-
-    xt_par0(XT_CLEAR_SCREEN); //PRINTS ALL THE QUESTIONS
+    
+    xt_par0(XT_CLEAR_SCREEN); 
+    printf("The prices for each ingredient are listed below.\n");
+    printf("    +++++\n");
+    printf("   +++++++\n");
+    printf("    +++++\n");
+    printf("Lemons: $0.49 per lemon\n");
+    
+    
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     char *buyLemons = "How many lemons would you like to purchase? ";
     printf("%s", buyLemons);
@@ -113,28 +125,38 @@ void play(int col, int row, int c) {
 
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 45); //moves cursor
     while (1) {
-	if (c >= 0 && c <= 9) {
-	    *lemons[lemonsCounter] = c;
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c == KEY_F5) {
+	    return;
+	}
+	if (c >= '0' && c <= '9') {
+	    strcat(lemons, c);
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
 	    lemonsCounter++;
 	}
 	if (c == KEY_ENTER) {
+	    numLem = atoi(lemons);	// put in input into numbers
 	    break;
 	}
     }
+    
     xt_par2(XT_SET_ROW_COL_POS, row = 3, col = 48);
-
     while (1) {
-	if (c >= 0 && c <= 9) {
-	    *ice[iceCounter] = c;
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	    strcat(ice, c);
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
 	    iceCounter++;
 	}
 	if (c == KEY_ENTER) {
+	    numIce = atoi(ice);
 	    break;
 	}
     }
@@ -142,14 +164,19 @@ void play(int col, int row, int c) {
 
     xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 43);
     while (1) {
-	if (c >= 0 && c <= 9) {
-	    *sugar[sugarCounter] = c;
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	    strcat(cups, c);
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
 	    sugarCounter++;
 	}
 	if (c == KEY_ENTER) {
+	    numCup = atoi(cups);
 	    break;
 	}
     }
@@ -158,102 +185,23 @@ void play(int col, int row, int c) {
 
     xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 53);
     while (1) {
-	if (c >= 0 && c <= 9) {
-	    *cups[cupsCounter] = c;
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	    strcat(sugar, c);
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
 	    cupsCounter++;
 	}
 	if (c == KEY_ENTER) {
+	    numSug = atoi(sugar);
 	    break;
 	}
     }
-
-
-    //    xt_par0(XT_CLEAR_SCREEN);
-    //    char *buyLemons = "How many lemons would you like to purchase? ";
-    //    printf("%s", buyLemons);
-    //    xt_par2(XT_SET_ROW_COL_POS, row = 2, col = 45);
-    //    while (c != KEY_ENTER) {
-    //	if (c >= 0 && c <= 9) {
-    //	    *lemons[lemonsCounter] = c;
-    //	    putchar(c);
-    //	    lemonsCounter++;
-    //	}
-    //    }
-    //    if (c == KEY_ENTER) {
-    //	printf("\n");
-    //	char *buyIce = "How many ice cubes would you like to purchase? ";
-    //	printf("%s", buyIce);
-    //	xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 48);
-    //	while (c != KEY_ENTER) {
-    //	    if (c >= 0 && c <= 9) {
-    //		*lemons[lemonsCounter] = c;
-    //		putchar(c);
-    //		lemonsCounter++;
-    //	    }
-    //	}
-    //    }
-    //    if (c == KEY_ENTER) {
-    //	printf("\n");
-    //	char *buyCups = "How many cups would you like to purchase? ";
-    //	printf("%s", buyCups);
-    //	xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 41);
-    //	while (c != KEY_ENTER) {
-    //	    if (c >= 0 && c <= 9) {
-    //		*lemons[lemonsCounter] = c;
-    //		putchar(c);
-    //		lemonsCounter++;
-    //	    }
-    //	}
-    //    }
-    //    if (c == KEY_ENTER) {
-    //	printf("\n");
-    //	char *buySugar = "How many cubes of sugar would you like to purchase? ";
-    //	printf("%s", buySugar);
-    //	xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 49);
-    //	while (c != KEY_ENTER) {
-    //	    if (c >= 0 && c <= 9) {
-    //		*lemons[lemonsCounter] = c;
-    //		putchar(c);
-    //		lemonsCounter++;
-    //	    }
-    //	}
-    //    }
-
-
-    //incorporate what you were working on before in here
-
+ 
+    
+    
 }
-
-
-
-
-
-
-
-
-//    while (1) {
-//        //incorporate arrow keys and typing
-//        while ((c = getkey()) == KEY_NOTHING); //to terminate
-//        if (c == KEY_F5) {
-//            break;
-//        } else if (c == KEY_UP && row > 1)
-//            xt_par2(XT_SET_ROW_COL_POS, --row, col);
-//        else if (c == KEY_DOWN && row < 24)
-//            xt_par2(XT_SET_ROW_COL_POS, ++row, col);
-//        else if (c == KEY_RIGHT && col < 80)
-//            xt_par2(XT_SET_ROW_COL_POS, row, ++col);
-//        else if (c == KEY_LEFT && col > 1)
-//            xt_par2(XT_SET_ROW_COL_POS, row, --col);
-//        else if (c == KEY_ENTER)
-//            xt_par2(XT_SET_ROW_COL_POS, ++row, col = 1);
-//        else if (c >= ' ' && c <= '~') {
-//            putchar(c);
-//            if (col < 80)
-//                ++col;
-//            else
-//                xt_par2(XT_SET_ROW_COL_POS, ++row, col = 1);
-//        }
-//    }
