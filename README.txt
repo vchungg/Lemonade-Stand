@@ -24,7 +24,7 @@ Supplies
 ==============
 Lemons: You need these to produce the actual drink
 Ice Cubes: You need these so the lemonade doesn't taste like sweat
-Sugar: You need these to make the lemonade sweet
+Sugar: You need this to make the lemonade sweet
 Cups: You need these to hold the damn lemonade 
 * Ingredients rot after some time so calculate how you spend your money wisely.
 
