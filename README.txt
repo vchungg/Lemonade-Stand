@@ -39,7 +39,7 @@ Make sure your lemony concoction fits with the overall atmosphere for the day! H
 ==============
 Controls
 ==============
-Respond to the prompts to answer how many of each you want to buy. You can't buy more than you can afford to
+Respond to the prompts to answer how many of each you want to buy. Press enter to key in your response.
 Press F5 to exit the game.
 
 
