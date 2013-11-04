@@ -15,7 +15,38 @@
 #define rainy 10
 #define stormy 0
 
+//prepares yo fridge
+struct initializeinv(){
+  struct inv{
+    int lemons = 0;
+    int sugar = 0;
+    int icecubes = 0;
+    int cups = 0;
+    int money = 10.00;
+  }
+  return inv;
+}
+  
+  //calculates how many cups can be made with specified ingredient
+  //input number of ingredients possessed, number ingredients per cup
+  int mc(int numingredients, int percup, int cups){
+    return numingredients / percup;
+  }
+  
+  //returns number of cups of lemonade sold for the day
+  //parameters are number of ingredients per cup
+  //needs to be refined
+  int sell(struct inv, int l, int s, int i, int cups, int weather){
+    int maxcups = min(mc(inv.lemons, l), mc(inv.sugar, s), mc(inv.icecubes, i), cups);
+    int soldcups = random(maxcups / 2, maxcups);
+    return soldcups;
+  }
+
+
+
+
 void main() {
+    struct inv = initializeinv();
     int yesplay;
     int col, row, c;
     char *greeting = "THE LEMONADE STAND GAME.\n";
@@ -34,8 +65,9 @@ void main() {
 	} else if (c == KEY_F4) {
 	    instructions(col, row, c);
 	} else if (c == KEY_ENTER) {
-	    play(col, row, c);
+	    prepare(col, row, c);
 	}
+	sell();
     }
 
     xt_par0(XT_CLEAR_SCREEN);
@@ -96,20 +128,25 @@ void play(int col, int row, int c) {
     
     // buying ingredients:
     int numLem, numIce, numSug, numCup;
-    char lemons[10], ice[10], sugar[10], cups[10];
+    char lemons[10], ice[10], sugar[10], cups[10], price[10];
     int lemonsCounter = 0;
     int iceCounter = 0;
     int sugarCounter = 0;
     int cupsCounter = 0;
     
+    //showing prices for each item
     xt_par0(XT_CLEAR_SCREEN); 
     printf("The prices for each ingredient are listed below.\n");
     printf("    +++++\n");
     printf("   +++++++\n");
     printf("    +++++\n");
-    printf("Lemons: $0.49 per lemon\n");
+    printf("Lemons: $0.50 per lemon\n");
+    printf("Ice Cubes: $0.10 per ice cube\n");
+    printf("Sugar: $0.10 per spoonful\n");
+    printf("Cups: $0.25 per cup\n");
     
     
+    //prompts asking how many of each to buy form the grocer
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     char *buyLemons = "How many lemons would you like to purchase? ";
     printf("%s", buyLemons);
@@ -122,7 +159,10 @@ void play(int col, int row, int c) {
     xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
     char *buySugar = "How many cubes of sugar would you like to purchase? ";
     printf("%s", buySugar);
+    char *setPrice = "How much do you want to sell each cup for? ";
+    printf("%s", setPrice);
 
+    //entering in the bought ingredients to inventory
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 45); //moves cursor
     while (1) {
 	while ((c = getkey()) == KEY_NOTHING);
@@ -141,7 +181,6 @@ void play(int col, int row, int c) {
 	    break;
 	}
     }
-    
     xt_par2(XT_SET_ROW_COL_POS, row = 3, col = 48);
     while (1) {
 	if (c == KEY_F5) {
@@ -160,8 +199,6 @@ void play(int col, int row, int c) {
 	    break;
 	}
     }
-
-
     xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 43);
     while (1) {
 	if (c == KEY_F5) {
@@ -173,16 +210,13 @@ void play(int col, int row, int c) {
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
-	    sugarCounter++;
+	    cupsCounter++;
 	}
 	if (c == KEY_ENTER) {
 	    numCup = atoi(cups);
 	    break;
 	}
     }
-
-
-
     xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 53);
     while (1) {
 	if (c == KEY_F5) {
@@ -194,7 +228,7 @@ void play(int col, int row, int c) {
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
-	    cupsCounter++;
+	    sugarCounter++;
 	}
 	if (c == KEY_ENTER) {
 	    numSug = atoi(sugar);
@@ -202,6 +236,27 @@ void play(int col, int row, int c) {
 	}
     }
  
+   //set price for each cup
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    while (1) {
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	    strcat(price, c);
+	    putchar(c);
+	    if (col < 80)
+		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
+	    c;
+	}
+	if (c == KEY_ENTER) {
+	    numPrice = atoi(price);
+	    break;
+	}
+    }
     
+    //sells the lemonade and puts the money earned into your inventory
+    inv. money = price * sell(inv, lpercup, spercup, ipercup, random(40));
     
 }
