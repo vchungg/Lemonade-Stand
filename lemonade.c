@@ -7,6 +7,7 @@
 #include "xterm_control.h"
 
 #define CONTROL_C	3
+#define MIN(x, y) (((x) > (y)) ? (x) : (y))
 
 //prepares yo fridge
 struct inv{
@@ -14,7 +15,7 @@ struct inv{
   int sugar;
   int icecubes;
   int cups;
-  float money;
+  double money;
 };
  
 
@@ -28,17 +29,17 @@ struct inv{
   //parameters are number of ingredients per cup
   //needs to be refined
   int sell(struct inv myInv, int l, int s, int i, int price){
-    int maxcups = fmin(
-		       fmin(mc(myInv.lemons, l), 
+    int maxcups = MIN(
+		       MIN(mc(myInv.lemons, l), 
 			    mc(myInv.sugar, s)), 
-		       fmin(mc(myInv.icecubes, i), 
-			    myInv.cups))
+		       MIN(mc(myInv.icecubes, i), 
+			    myInv.cups)
       );
     int soldcups = (rand() % maxcups / 2) + maxcups / 2;
     return soldcups;
   }
 
-void instructions(int col, int row, int c);
+int instructions(int col, int row, int c);
 void play(int col, int row, int c);
 
 void main() {
