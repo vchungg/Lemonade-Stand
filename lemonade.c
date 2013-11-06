@@ -12,41 +12,37 @@
 #define sweltering 40
 #define sunny 30
 #define cloudy 20
-#define rainy 10
+#define rainy 10  
 #define stormy 0
-
 //prepares yo fridge
-struct initializeinv(){
-  struct inv{
-    int lemons = 0;
-    int sugar = 0;
-    int icecubes = 0;
-    int cups = 0;
-    int money = 10.00;
-  }
-  return inv;
+struct inv{
+  int lemons = 0;
+  int sugar = 0;
+  int icecubes = 0;
+  int cups = 0;
+  int money = 10.00;
 }
-  
-  //calculates how many cups can be made with specified ingredient
-  //input number of ingredients possessed, number ingredients per cup
-  int mc(int numingredients, int percup, int cups){
+ 
+
+//calculates how many cups can be made with specified ingredient
+//input number of ingredients possessed, number ingredients per cup
+  int mc(int numingredients, int percup){
     return numingredients / percup;
   }
-  
+
   //returns number of cups of lemonade sold for the day
   //parameters are number of ingredients per cup
   //needs to be refined
-  int sell(struct inv, int l, int s, int i, int cups, int weather){
-    int maxcups = min(mc(inv.lemons, l), mc(inv.sugar, s), mc(inv.icecubes, i), cups);
-    int soldcups = random(maxcups / 2, maxcups);
+  int sell(struct inv myInv, int l, int s, int i, int price){
+    int maxcups = min(mc(inv.lemons, l), mc(inv.sugar, s), mc(inv.icecubes, i), myInv.cups);
+    int soldcups = (rand() % maxcups / 2) + maxcups / 2;
     return soldcups;
   }
 
-
-
+void instructions(int col, int row, int c);
+void play(int col, int row, int c);
 
 void main() {
-    struct inv = initializeinv();
     int yesplay;
     int col, row, c;
     char *greeting = "THE LEMONADE STAND GAME.\n";
@@ -65,9 +61,8 @@ void main() {
 	} else if (c == KEY_F4) {
 	    instructions(col, row, c);
 	} else if (c == KEY_ENTER) {
-	    prepare(col, row, c);
+	    play(col, row, c);
 	}
-	sell();
     }
 
     xt_par0(XT_CLEAR_SCREEN);
@@ -122,17 +117,20 @@ void instructions(int col, int row, int c) {
     }
 }
 
-void play(int col, int row, int c) {
+
+struct inv getInfo(int col, int row, int c, struct inv myinv) {
+  struct inventory myInv = myinv;
     int daysCounter = 1;
     
     
     // buying ingredients:
-    int numLem, numIce, numSug, numCup;
-    char lemons[10], ice[10], sugar[10], cups[10], price[10];
+    int numLem, numIce, numSug, numCup, numPrice, lpercup, spercup, ipercup;
+    char lemons[10], ice[10], sugar[10], cups[10], price[10], lcup[10], scup[10], icup[10];
     int lemonsCounter = 0;
     int iceCounter = 0;
     int sugarCounter = 0;
     int cupsCounter = 0;
+    int priceCounter = 0, lpcCounter = 0, spcCounter = 0, ipcCounter = 0;
     
     //showing prices for each item
     xt_par0(XT_CLEAR_SCREEN); 
@@ -161,8 +159,24 @@ void play(int col, int row, int c) {
     printf("%s", buySugar);
     char *setPrice = "How much do you want to sell each cup for? ";
     printf("%s", setPrice);
+    //prompts asking how many of each to buy form the grocer
+    xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
+    char *setLemons = "How many lemons would you like to purchase? ";
+    printf("%s", setLemons);
+    xt_par2(XT_SET_ROW_COL_POS, row = 3, col = 1);
+    char *setIce = "How many ice cubes would you like to purchase? ";
+    printf("%s", setIce);
+    xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 1);
+    char *setCups = "How many cups would you like to purchase? ";
+    printf("%s", setCups);
+    xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
+    char *setSugar = "How many cubes of sugar would you like to purchase? ";
+    printf("%s", setSugar);
+    char *setPrice = "How much do you want to sell each cup for? ";
+    printf("%s", setPrice);
 
     //entering in the bought ingredients to inventory
+    //sets how many lemons to buy
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 45); //moves cursor
     while (1) {
 	while ((c = getkey()) == KEY_NOTHING);
@@ -181,6 +195,7 @@ void play(int col, int row, int c) {
 	    break;
 	}
     }
+    //sets how many ice cubes to buy
     xt_par2(XT_SET_ROW_COL_POS, row = 3, col = 48);
     while (1) {
 	if (c == KEY_F5) {
@@ -199,6 +214,7 @@ void play(int col, int row, int c) {
 	    break;
 	}
     }
+    //sets how many cups to buy
     xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 43);
     while (1) {
 	if (c == KEY_F5) {
@@ -217,6 +233,7 @@ void play(int col, int row, int c) {
 	    break;
 	}
     }
+    //set how many spoonfuls of sugar to buy
     xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 53);
     while (1) {
 	if (c == KEY_F5) {
@@ -248,7 +265,7 @@ void play(int col, int row, int c) {
 	    putchar(c);
 	    if (col < 80)
 		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
-	    c;
+	    priceCounter++;
 	}
 	if (c == KEY_ENTER) {
 	    numPrice = atoi(price);
@@ -256,7 +273,77 @@ void play(int col, int row, int c) {
 	}
     }
     
+   //set how many lemons for each cup
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    while (1) {
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	    strcat(lcup, c);
+	    putchar(c);
+	    if (col < 80)
+		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
+	    lpcCounter++;
+	}
+	if (c == KEY_ENTER) {
+	    lpercup = atoi(lcup);
+	    break;
+	}
+    }
+    //set how many spoonfuls of sugar for each cup
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    while (1) {
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	  strcat(scup, c);
+	    putchar(c);
+	    if (col < 80)
+		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
+	    spcCounter++;
+	}
+	if (c == KEY_ENTER) {
+	    spercup = atoi(scup);
+	    break;
+	}
+    }
+    //set how many ice cubes for each cup
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    while (1) {
+	if (c == KEY_F5) {
+	    return;
+	}
+	while ((c = getkey()) == KEY_NOTHING);
+	if (c >= '0' && c <= '9') {
+	    strcat(icup, c);
+	    putchar(c);
+	    if (col < 80)
+		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
+	    ipcCounter++;
+	}
+	if (c == KEY_ENTER) {
+	    ipercup = atoi(icup);
+	    break;
+	}
+    }   
+
+
     //sells the lemonade and puts the money earned into your inventory
-    inv. money = price * sell(inv, lpercup, spercup, ipercup, random(40));
+    myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
     
+    return myInv;
+}
+
+
+void play(int col, int row, int c){
+  struct inv myInv;
+  int dayCounter = 1;
+  while (dayCounter < 31){
+    myInv = getInfo(col,row,c,myInv);
+    dayCounter++;
+  }
 }
