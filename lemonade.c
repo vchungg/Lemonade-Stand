@@ -8,19 +8,13 @@
 
 #define CONTROL_C	3
 
-//weather variables
-#define sweltering 40
-#define sunny 30
-#define cloudy 20
-#define rainy 10  
-#define stormy 0
 //prepares yo fridge
 struct inv{
   int lemons = 0;
   int sugar = 0;
   int icecubes = 0;
   int cups = 0;
-  int money = 10.00;
+  float money = 10.00;
 };
  
 
@@ -155,25 +149,20 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
     char *buyCups = "How many cups would you like to purchase? ";
     printf("%s", buyCups);
     xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 1);
-    char *buySugar = "How many cubes of sugar would you like to purchase? ";
+    char *buySugar = "How many spoonfuls of sugar would you like to purchase? ";
     printf("%s", buySugar);
     char *setPrice = "How much do you want to sell each cup for? ";
     printf("%s", setPrice);
     //prompts asking how many of each to buy form the grocer
-    xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
-    char *setLemons = "How many lemons would you like to purchase? ";
+    xt_par2(XT_SET_ROW_COL_POS, row = 11, col = 1);
+    char *setLemons = "How many lemons would you like to put in a cup? ";
     printf("%s", setLemons);
-    xt_par2(XT_SET_ROW_COL_POS, row = 3, col = 1);
-    char *setIce = "How many ice cubes would you like to purchase? ";
+    xt_par2(XT_SET_ROW_COL_POS, row = 13, col = 1);
+    char *setIce = "How many ice cubes would you like to put in a cup? ";
     printf("%s", setIce);
-    xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 1);
-    char *setCups = "How many cups would you like to purchase? ";
-    printf("%s", setCups);
-    xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
+    xt_par2(XT_SET_ROW_COL_POS, row = 15, col = 1);
     char *setSugar = "How many cubes of sugar would you like to purchase? ";
     printf("%s", setSugar);
-    char *setPrice = "How much do you want to sell each cup for? ";
-    printf("%s", setPrice);
 
     //entering in the bought ingredients to inventory
     //sets how many lemons to buy
@@ -234,7 +223,7 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
 	}
     }
     //set how many spoonfuls of sugar to buy
-    xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 53);
+    xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 57);
     while (1) {
 	if (c == KEY_F5) {
 	    return;
@@ -254,7 +243,7 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
     }
  
    //set price for each cup
-    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 44);
     while (1) {
 	if (c == KEY_F5) {
 	    return;
@@ -274,7 +263,7 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
     }
     
    //set how many lemons for each cup
-    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    xt_par2(XT_SET_ROW_COL_POS, row = 11, col = 49);
     while (1) {
 	if (c == KEY_F5) {
 	    return;
@@ -293,7 +282,7 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
 	}
     }
     //set how many spoonfuls of sugar for each cup
-    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    xt_par2(XT_SET_ROW_COL_POS, row = 13, col = 52);
     while (1) {
 	if (c == KEY_F5) {
 	    return;
@@ -312,7 +301,7 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
 	}
     }
     //set how many ice cubes for each cup
-    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 3);
+    xt_par2(XT_SET_ROW_COL_POS, row = 15, col = 53);
     while (1) {
 	if (c == KEY_F5) {
 	    return;
@@ -334,7 +323,6 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
 
     //sells the lemonade and puts the money earned into your inventory
     myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
-    
     return myInv;
 }
 
