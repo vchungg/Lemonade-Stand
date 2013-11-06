@@ -21,7 +21,7 @@ struct inv{
   int icecubes = 0;
   int cups = 0;
   int money = 10.00;
-}
+};
  
 
 //calculates how many cups can be made with specified ingredient
@@ -34,7 +34,7 @@ struct inv{
   //parameters are number of ingredients per cup
   //needs to be refined
   int sell(struct inv myInv, int l, int s, int i, int price){
-    int maxcups = min(mc(inv.lemons, l), mc(inv.sugar, s), mc(inv.icecubes, i), myInv.cups);
+    int maxcups = fmin(mc(inv.lemons, l), mc(inv.sugar, s), mc(inv.icecubes, i), myInv.cups);
     int soldcups = (rand() % maxcups / 2) + maxcups / 2;
     return soldcups;
   }
@@ -119,7 +119,7 @@ void instructions(int col, int row, int c) {
 
 
 struct inv getInfo(int col, int row, int c, struct inv myinv) {
-  struct inventory myInv = myinv;
+  struct inv myInv = myinv;
     int daysCounter = 1;
     
     
@@ -145,16 +145,16 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
     
     
     //prompts asking how many of each to buy form the grocer
-    xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
+    xt_par2(XT_SET_ROW_COL_POS, row = 6, col = 1);
     char *buyLemons = "How many lemons would you like to purchase? ";
     printf("%s", buyLemons);
-    xt_par2(XT_SET_ROW_COL_POS, row = 3, col = 1);
+    xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
     char *buyIce = "How many ice cubes would you like to purchase? ";
     printf("%s", buyIce);
-    xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 1);
+    xt_par2(XT_SET_ROW_COL_POS, row = 8, col = 1);
     char *buyCups = "How many cups would you like to purchase? ";
     printf("%s", buyCups);
-    xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 1);
     char *buySugar = "How many cubes of sugar would you like to purchase? ";
     printf("%s", buySugar);
     char *setPrice = "How much do you want to sell each cup for? ";
