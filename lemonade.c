@@ -28,7 +28,12 @@ struct inv{
   //parameters are number of ingredients per cup
   //needs to be refined
   int sell(struct inv myInv, int l, int s, int i, int price){
-    int maxcups = fmin(fmin(mc(myInv.lemons, l), mc(myInv.sugar, s)), fmin(mc(myInv.icecubes, i), myInv.cups)));
+    int maxcups = fmin(
+		       fmin(mc(myInv.lemons, l), 
+			    mc(myInv.sugar, s)), 
+		       fmin(mc(myInv.icecubes, i), 
+			    myInv.cups))
+      );
     int soldcups = (rand() % maxcups / 2) + maxcups / 2;
     return soldcups;
   }
@@ -64,7 +69,7 @@ void main() {
     getkey_terminate();
 }
 
-void instructions(int col, int row, int c) {
+int instructions(int col, int row, int c) {
     int days = 0;
     char *instructions = "To manage your lemonade stand, you will need to make these decisions \nevery day:\n1. How many ingredients (including sugar cubes, ice cubes, cups, and lemons) to buy?\n2. What price to charge for each cup of lemonade?\nTo continue, press enter.";
     xt_par0(XT_CLEAR_SCREEN);
@@ -108,6 +113,8 @@ void instructions(int col, int row, int c) {
 	if (c == KEY_ENTER) {
 	    return 0;
 	}
+	else
+	  return 1;
     }
 }
 
