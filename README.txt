@@ -26,13 +26,7 @@ Lemons: You need these to produce the actual drink
 Ice Cubes: You need these so the lemonade doesn't taste like sweat
 Sugar: You need this to make the lemonade sweet
 Cups: You need these to hold the damn lemonade 
-* Ingredients rot after some time so calculate how you spend your money wisely.
 
-
-==============
-Weather
-==============
-Make sure your lemony concoction fits with the overall atmosphere for the day! Hint: If there is a storm outside, you don't want to sell lemonade that's too cold!
 
 
 
@@ -48,7 +42,26 @@ Press F5 to exit the game.
 ==============
 How to win the game
 ==============
-Garner enough money until you finally feel better about yourself.
+Garner as much money as you can within 30 days!
+
+
+
+
+==============
+Bugs
+==============
+As of now, there are problems regarding struct coding so the whole computer explodes if you try to run the program.
+
+
+
+
+==============
+Abandoned Features
+==============
+- Rotting ingredients
+- Cool-looking lemonade stand and avatar
+- Shop to decorate stand and avatar
+- Weather feature
 
 
 
