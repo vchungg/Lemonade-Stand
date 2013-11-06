@@ -10,11 +10,11 @@
 
 //prepares yo fridge
 struct inv{
-  int lemons = 0;
-  int sugar = 0;
-  int icecubes = 0;
-  int cups = 0;
-  float money = 10.00;
+  int lemons;
+  int sugar;
+  int icecubes;
+  int cups;
+  float money;
 };
  
 
@@ -28,7 +28,7 @@ struct inv{
   //parameters are number of ingredients per cup
   //needs to be refined
   int sell(struct inv myInv, int l, int s, int i, int price){
-    int maxcups = fmin(mc(inv.lemons, l), mc(inv.sugar, s), mc(inv.icecubes, i), myInv.cups);
+    int maxcups = fmin(fmin(mc(myInv.lemons, l), mc(myInv.sugar, s)), fmin(mc(myInv.icecubes, i), myInv.cups)));
     int soldcups = (rand() % maxcups / 2) + maxcups / 2;
     return soldcups;
   }
@@ -329,6 +329,11 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
 
 void play(int col, int row, int c){
   struct inv myInv;
+  myInv.lemons = 0;
+  myInv.sugar = 0;
+  myInv.icecubes = 0;
+  myInv.cups = 0;
+  myInv.money = 10.00;
   int dayCounter = 1;
   while (dayCounter < 31){
     myInv = getInfo(col,row,c,myInv);
