@@ -45,14 +45,14 @@ void play(int col, int row, int c);
 void main() {
     int yesplay;
     int col, row, c;
-    char *greeting = "THE LEMONADE STAND GAME.\n";
+    char *greeting = "\t\t***********************\n\t\tTHE LEMONADE STAND GAME\n\t\t***********************\n\n";
     char *intro = "Hi! Welcome to Lemonsville, Florida! In this small town, you are in charge of\nrunning your own lemonade stand. \nIf you would like to start a new game, press F4.\nYou may press F5 at any time to terminate.";
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     row = col = 1;
     xt_par0(XT_CLEAR_SCREEN);
     printf("%s", greeting);
     printf("%s", intro);
-    xt_par2(XT_SET_ROW_COL_POS, row = 6, col = 1);
+    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 1);
 
     while (c != KEY_F5) {
 	while ((c = getkey()) == KEY_NOTHING);
@@ -72,7 +72,7 @@ void main() {
 
 int instructions(int col, int row, int c) {
 
-    char *instructions = "To manage your lemonade stand, you will need to make these decisions \nevery day:\n1. How many ingredients (including sugar cubes, ice cubes, cups, and lemons) to buy?\n2. What price to charge for each cup of lemonade?\nTo continue, press enter.";
+    char *instructions = "To manage your lemonade stand, you will need to make these decisions \nevery day:\n1. How many ingredients (including sugar cubes, ice cubes, cups, and\nlemons) to buy?\n2. What price to charge for each cup of lemonade?\nTo continue, press enter.";
     xt_par0(XT_CLEAR_SCREEN);
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     printf("%s", instructions);
@@ -82,34 +82,34 @@ int instructions(int col, int row, int c) {
 	char *newstand = "Here is your new stand. Press enter to continue."; //shows picture of stand
 	xt_par2(XT_SET_ROW_COL_POS, row = 6, col = 1);
 	printf("%s\n\n", newstand);
-	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-	printf("\t\t\t+++++++++YOUR LEMONADE STAND++++++++++\n");
-	printf("\t\t\t+++++++++++@SEASONAL PRICES+++++++++++\n");
-	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-	printf("\t\t\t+++\t\t\t\t   +++\n");
-	printf("\t\t\t+++\t\t\t\t   +++\n");
-	printf("\t\t\t+++\t\t\t\t   +++\n");
-	printf("\t\t\t+++\t\t\t\t   +++\n");
-	printf("\t\t\t+++\t\t\t\t   +++\n");
-	printf("\t\t\t+++\t+++\t\t\t   +++\n");
-	printf("\t\t\t+++\t++++\t\t\t   +++\n");
-	printf("\t\t\t+++\t+++\t++++\t\t   +++\n");
-	printf("\t\t\t+++\t+++\t ++\t\t   +++\n");
-	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
+	printf("\t\t\t+|----------------------------------|+\n");
+	printf("\t\t\t+|+++++++YOUR LEMONADE STAND++++++++|+\n");
+	printf("\t\t\t+|+++++++++@SEASONAL PRICES+++++++++|+\n");
+	printf("\t\t\t+|==================================|+\n");
+	printf("\t\t\t+|+\t\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t|_|\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t|+|+\t\t\t   +|+\n");
+	printf("\t\t\t+|+\t|+|\t++++\t\t   +|+\n");
+	printf("\t\t\t+|+\t|+|\t ++\t\t   +|+\n");
+	printf("\t\t\t+====================================+\n");
 	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
 	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
 	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
 	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
+	printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
+	printf("\t\t\t+====================================+\n");
     }
     while ((c = getkey()) == KEY_NOTHING);
     if (c == KEY_ENTER) {
-	char *start = "You will begin with $10.00 CASH. You already have a lemonade stand from \nyour mother, so you do not need to buy one.\nYou will have a stand out for a total of thirty days. Before each day you \nwill be advised of the weather forecast and be prompted to purchase ingredients.\nPress enter twice to play.";
+	char *start = "You will begin with $10.00 CASH. You already have a lemonade stand from \nyour mother, so you do not need to buy one.\nYou will have a stand out for a total of thirty days. Before each day you \nwill be advised of the weather forecast and be prompted to purchase ingredients\nPress enter twice to play.";
 	xt_par0(XT_CLEAR_SCREEN);
 	xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
 	printf("%s", start);
-	xt_par2(XT_SET_ROW_COL_POS, row = 6, col = 1);
+	xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
 	while ((c = getkey()) == KEY_NOTHING);
 	if (c == KEY_ENTER) {
 	  return 0;
@@ -154,7 +154,7 @@ struct inv getInfo(int col, int row, int c, struct inv myinv) {
     printf("Spoonfuls of Sugar: %d\n", myInv.sugar);
     printf("Ice Cubes: %d\n", myInv.icecubes);
     printf("Cups: %d\n", myInv.cups);
-    printf("Money: %d\n", myInv.money);
+    printf("Money: %G\n\n", myInv.money);
     printf("Remember this information cuz we ain't showing it to you \nfor the next step. Press enter to continue.\n");
 
 
@@ -372,6 +372,7 @@ void play(int col, int row, int c){
   //game over
   xt_par0(XT_CLEAR_SCREEN);
   xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
-  printf("Congratulations, you've earned $%d this past month. I hope you're proud of yourself.\n", myInv.money);
+  printf("Congratulations, you've earned $%G this past month. \nI hope you're proud of yourself.\n\n", myInv.money);
   printf("Press F5 to exit.");
+  xt_par2(XT_SET_ROW_COL_POS, row = 5, col = 1);
 }
