@@ -12,7 +12,6 @@
 #define MIN(x, y) (((x) > (y)) ? (x) : (y))
 
 //prepares yo fridge
-
 struct inv {
     int lemons;
     int sugar;
@@ -25,7 +24,6 @@ struct inv {
 
 //calculates how many cups can be made with specified ingredient
 //input number of ingredients possessed, number ingredients per cup
-
 int mc(int numingredients, int percup) {
     return numingredients / percup;
 }
@@ -33,7 +31,6 @@ int mc(int numingredients, int percup) {
 //returns number of cups of lemonade sold for the day
 //parameters are number of ingredients per cup
 //needs to be refined
-
 int sell(struct inv myInv, int l, int s, int i, int price) {
     int maxcups = MIN(
             MIN(mc(myInv.lemons, l),
@@ -45,6 +42,7 @@ int sell(struct inv myInv, int l, int s, int i, int price) {
     return soldcups;
 }
 
+//kind of an introduction to how the game works
 int instructions() {
     int col, row, c;
     char *instructions = "To manage your lemonade stand, you will need to make these decisions \nevery day:\n1. How many ingredients (including sugar cubes, ice cubes, cups, and\nlemons) to buy?\n2. What price to charge for each cup of lemonade?\nTo continue, press enter.";
@@ -57,26 +55,69 @@ int instructions() {
         char *newstand = "Here is your new stand. Press enter to continue."; //shows picture of stand
         xt_par2(XT_SET_ROW_COL_POS, row = 6, col = 1);
         printf("%s\n\n", newstand);
+	xt_par0(XT_BG_BLACK);
+	xt_par0(XT_CH_RED);
         printf("\t\t\t+|----------------------------------|+\n");
         printf("\t\t\t+|+++++++YOUR LEMONADE STAND++++++++|+\n");
         printf("\t\t\t+|+++++++++@SEASONAL PRICES+++++++++|+\n");
         printf("\t\t\t+|==================================|+\n");
-        printf("\t\t\t+|+\t\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t|_|\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t|+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t|+|\t++++\t\t   +|+\n");
-        printf("\t\t\t+|+\t|+|\t ++\t\t   +|+\n");
+        printf("\t\t\t+|+                                +|+\n");
+        printf("\t\t\t+|+                    _______     +|+\n");
+        printf("\t\t\t+|+                   |");
+	xt_par0(XT_BG_YELLOW);
+	printf(" o   o ");
+	xt_par0(XT_BG_BLACK);
+	printf("|    +|+\n\t\t\t+|+                   |");
+	xt_par0(XT_BG_YELLOW);
+	printf("       ");
+	xt_par0(XT_BG_BLACK);
+	printf("|    +|+\n\t\t\t+|+                   |");
+	xt_par0(XT_BG_YELLOW);
+	printf("   u   ");
+	xt_par0(XT_BG_BLACK);
+	printf("|    +|+\n\t\t\t+|+  |_|           Y   ");
+	xt_par0(XT_BG_CYAN);
+	printf("-------");
+	xt_par0(XT_BG_BLACK);
+	printf("     +|+\n");
+        printf("\t\t\t+|+  |");
+	xt_par0(XT_BG_YELLOW);
+	printf("+");
+	xt_par0(XT_BG_BLACK);
+	printf("|+          |__|");
+	xt_par0(XT_BG_MAGENTA);
+	printf("   #   ");
+	xt_par0(XT_BG_BLACK);
+	printf("|_   +|+\n\t\t\t+|+  |");
+	xt_par0(XT_BG_YELLOW);
+	printf("+");
+	xt_par0(XT_BG_BLACK);
+	printf("|    ++++      [");
+	xt_par0(XT_BG_MAGENTA);
+	printf("   #   ");
+	xt_par0(XT_BG_BLACK);
+	printf("] |  +|+\n\t\t\t+|+  |");
+	xt_par0(XT_BG_YELLOW);
+	printf("+");
+	xt_par0(XT_BG_BLACK);
+	printf("|     ");
+	xt_par0(XT_BG_YELLOW);
+	printf("++");
+	xt_par0(XT_BG_BLACK);
+	printf("       {");
+	xt_par0(XT_BG_MAGENTA);
+	printf("   #   ");
+	xt_par0(XT_BG_BLACK);
+	printf("} n  +|+\n");
         printf("\t\t\t+====================================+\n");
         printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
         printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t+====================================+\n");
+        printf("\t\t\t++++++++++++++++++++++++++++++++++++++");
+	xt_par0(XT_BG_GREEN);
+        printf("\n\t\t\t+====================================+");
+	xt_par0(XT_CH_WHITE);
+	printf("\n");
+	xt_par0(XT_BG_BLUE);
     }
     while ((c = getkey()) == KEY_NOTHING);
     if (c == KEY_ENTER) {
@@ -112,74 +153,109 @@ void sunshine() {
     char * sunny = "  .';;;'. \n";
     char *suny = "   / | \\ \n";
 
+    xt_par0(XT_CLEAR_SCREEN);
     while (col < 40) {
-        
-        xt_par2(XT_SET_ROW_COL_POS, row, col);
-        printf("%s", sun);
-        xt_par2(XT_SET_ROW_COL_POS, row+1, col);
-        printf("%s",sol);
-        xt_par2(XT_SET_ROW_COL_POS, row+2, col);
-        printf("%s",sole);
-        xt_par2(XT_SET_ROW_COL_POS, row+3, col);
-        printf("%s",sunny);
-        xt_par2(XT_SET_ROW_COL_POS, row+4, col);
-        printf("%s", suny);
- 
-        row -= 2;
-        col += 10;
-xt_par2(XT_SET_ROW_COL_POS, 12, 0);
-        printf("\t\t\t+|--------------------------|+\n");
-        printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
-        printf("\t\t\t+|==========================|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+============================+\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t+============================+\n");
-        
-        usleep(1000000);
-        xt_par0(XT_CLEAR_SCREEN);
+      
+      xt_par0(XT_CH_YELLOW);
+      xt_par2(XT_SET_ROW_COL_POS, row, col);
+      printf("%s", sun);
+      xt_par2(XT_SET_ROW_COL_POS, row+1, col);
+      printf("%s",sol);
+      xt_par2(XT_SET_ROW_COL_POS, row+2, col);
+      printf("%s",sole);
+      xt_par2(XT_SET_ROW_COL_POS, row+3, col);
+      printf("%s",sunny);
+      xt_par2(XT_SET_ROW_COL_POS, row+4, col);
+      printf("%s", suny);
+	
+      row -= 2;
+      col += 10;
+      xt_par2(XT_SET_ROW_COL_POS, 12, 0);
+      xt_par0(XT_CH_RED);
+      printf("\t\t\t+|--------------------------|+\n");
+      printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
+      printf("\t\t\t+|==========================|+\n");
+      printf("\t\t\t+|+                        +|+\n");
+      printf("\t\t\t+|+         -------        +|+\n");
+      printf("\t\t\t+|+        |");
+      xt_par0(XT_BG_YELLOW);
+      printf(" 0   < ");
+      xt_par0(XT_BG_BLUE);
+      printf("|       +|+\n");
+      printf("\t\t\t+|+  |-|   |");
+      xt_par0(XT_BG_YELLOW);
+      printf("   u   ");
+      xt_par0(XT_BG_BLUE);
+      printf("|       +|+\n");
+      printf("\t\t\t+|+  |");
+      xt_par0(XT_BG_YELLOW);
+      printf(" ");
+      xt_par0(XT_BG_BLUE);
+      printf("|    |");
+      xt_par0(XT_BG_CYAN);
+      printf("-----");
+      xt_par0(XT_BG_BLUE);
+      printf("|        +|+\n");
+      printf("\t\t\t+============================+\n");
+      printf("\t\t\t++++++++++++++++++++++++++++++\n");
+      printf("\t\t\t++++++++++++++++++++++++++++++\n");
+      printf("\t\t\t+============================+\n");
+      usleep(100000);
+      xt_par0(XT_CLEAR_SCREEN);
     }
     while (col > 40) {
-        
-        xt_par2(XT_SET_ROW_COL_POS, row, col);
-        printf("%s", sun);
-        xt_par2(XT_SET_ROW_COL_POS, row+1, col);
-        printf("%s",sol);
-        xt_par2(XT_SET_ROW_COL_POS, row+2, col);
-        printf("%s",sole);
-        xt_par2(XT_SET_ROW_COL_POS, row+3, col);
-        printf("%s",sunny);
-        xt_par2(XT_SET_ROW_COL_POS, row+4, col);
-        printf("%s", suny);
-        
-        row += 2;
-        col += 10;
-           xt_par2(XT_SET_ROW_COL_POS, 12, 0);
-    printf("\t\t\t+|--------------------------|+\n");
-        printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
-        printf("\t\t\t+|==========================|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
-        printf("\t\t\t+|+\t\t\t   +|+\n");
 
-        printf("\t\t\t+============================+\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++\n");
-        printf("\t\t\t++++++++++++++++++++++++++++++\n");
-
-        printf("\t\t\t+============================+\n");
-        usleep(1000000);
-        xt_par0(XT_CLEAR_SCREEN);
-        if (row == 10) {
-            break;
-        }
+      xt_par0(XT_CH_YELLOW);
+      xt_par2(XT_SET_ROW_COL_POS, row, col);
+      printf("%s", sun);
+      xt_par2(XT_SET_ROW_COL_POS, row+1, col);
+      printf("%s",sol);
+      xt_par2(XT_SET_ROW_COL_POS, row+2, col);
+      printf("%s",sole);
+      xt_par2(XT_SET_ROW_COL_POS, row+3, col);
+      printf("%s",sunny);
+      xt_par2(XT_SET_ROW_COL_POS, row+4, col);
+      printf("%s", suny);
+      
+      row += 2;
+      col += 10;
+      xt_par2(XT_SET_ROW_COL_POS, 12, 0);
+      xt_par0(XT_CH_RED);
+      printf("\t\t\t+|--------------------------|+\n");
+      printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
+      printf("\t\t\t+|==========================|+\n");
+      printf("\t\t\t+|+                        +|+\n");
+      printf("\t\t\t+|+         -------        +|+\n");
+      printf("\t\t\t+|+        |");
+      xt_par0(XT_BG_YELLOW);
+      printf(" 0   < ");
+      xt_par0(XT_BG_BLUE);
+      printf("|       +|+\n");
+      printf("\t\t\t+|+  |-|   |");
+      xt_par0(XT_BG_YELLOW);
+      printf("   u   ");
+      xt_par0(XT_BG_BLUE);
+      printf("|       +|+\n");
+      printf("\t\t\t+|+  |");
+      xt_par0(XT_BG_YELLOW);
+      printf(" ");
+      xt_par0(XT_BG_BLUE);
+      printf("|    |");
+      xt_par0(XT_BG_CYAN);
+      printf("-----");
+      xt_par0(XT_BG_BLUE);
+      printf("|        +|+\n");
+      printf("\t\t\t+============================+\n");
+      printf("\t\t\t++++++++++++++++++++++++++++++\n");
+      printf("\t\t\t++++++++++++++++++++++++++++++\n");
+      printf("\t\t\t+============================+\n");
+      usleep(100000);
+      xt_par0(XT_CLEAR_SCREEN);
+      if (row == 10) {
+	break;
+      }
     }
+    xt_par0(XT_CH_WHITE);
 }
 
 //Requires input from the player to move onto the next step
@@ -201,24 +277,57 @@ struct inv getInfo(struct inv myinv) {
     //displays prices
     xt_par0(XT_CLEAR_SCREEN);
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
-    printf("The prices for each ingredient are listed below.\n");
-    printf("    +++++\n");
-    printf("   +++++++\n");
-    printf("    +++++\n");
-    printf("Lemons: $0.50 per lemon\n");
-    printf("Ice Cubes: $0.10 per ice cube\n");
-    printf("Sugar: $0.10 per spoonful\n");
-    printf("Cups: $0.05 per cup\n");
-    printf("\n\n\n");
+    xt_par0(XT_CH_BLACK);
+    printf("\t\t\t+++++++++++++++++++++++++++\n");
+    printf("\t\t\t|");
+    xt_par0(XT_BG_YELLOW);
+    printf("  WELCOME TO THE GROCER  ");
+    xt_par0(XT_BG_BLUE);
+    printf("|\n");
+    printf("\t\t\t***************************\n");
+    printf("\t\t\t|         ____            |\n");
+    printf("\t\t\t|        {");
+    xt_par0(XT_CH_RED);
+    printf("&&&&");
+    xt_par0(XT_CH_BLACK);
+    printf("}           |\n");
+    printf("\t\t\t|       |");
+    xt_par0(XT_BG_YELLOW);
+    printf(" $  $ ");
+    xt_par0(XT_BG_BLUE);
+    printf("|          |\n");
+    printf("\t\t\t|       |");
+    xt_par0(XT_BG_YELLOW);
+    printf("  ^   ");
+    xt_par0(XT_BG_BLUE);
+    printf("|          |\n");
+    printf("\t\t\t|        ");
+    xt_par0(XT_BG_GREEN);
+    printf("------");
+    xt_par0(XT_BG_BLUE);
+    printf("           |\n");
+    printf("\t\t\t|=========================|\n");
+    xt_par0(XT_CH_WHITE);
+    printf("\t\t\tLemons: $0.50 per lemon\n");
+    printf("\t\t\tIce Cubes: $0.10 per ice cube\n");
+    printf("\t\t\tSugar: $0.10 per spoonful\n");
+    printf("\t\t\tCups: $0.05 per cup\n");
+    printf("\n");
     //displays inventory
-    printf("******************\n");
-    printf("| Your inventory |\n");
-    printf("******************\n");
-    printf("Lemons: %d\n", myInv.lemons);
-    printf("Spoonfuls of Sugar: %d\n", myInv.sugar);
-    printf("Ice Cubes: %d\n", myInv.icecubes);
-    printf("Cups: %d\n", myInv.cups);
-    printf("Money: %G\n\n", myInv.money);
+    xt_par0(XT_CH_BLACK);
+    printf("\t\t\t***************************\n");
+    printf("\t\t\t|");
+    xt_par0(XT_BG_RED);
+    printf("      YOUR INVENTORY     ");
+    xt_par0(XT_BG_BLUE);
+    printf("|\n");
+    printf("\t\t\t***************************\n");
+    xt_par0(XT_CH_WHITE);
+    printf("\t\t\tLemons: %d\n", myInv.lemons);
+    printf("\t\t\tSpoonfuls of Sugar: %d\n", myInv.sugar);
+    printf("\t\t\tIce Cubes: %d\n", myInv.icecubes);
+    printf("\t\t\tCups: %d\n", myInv.cups);
+    printf("\t\t\tMoney: %G\n", myInv.money);
     printf("Press enter to continue.\n");
 
 
@@ -229,8 +338,12 @@ struct inv getInfo(struct inv myinv) {
 
         //warning: no backspace, too bad if you type wrong
         xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
+	xt_par0(XT_CH_MAGENTA);
         printf("Make sure to input numbers only. Be sure to input the correct amount.\n");
-        printf("If you input the wrong amount, and you do not have enough money to buy it,\nyour lemonade days are over. SO BE SURE TO INPUT EACH DIGIT CORRECTLY.");
+        printf("If you input the wrong amount, and you do not have enough money to buy it,\nyour lemonade days are over. ");
+	xt_par0(XT_CH_RED);
+	printf("SO BE SURE TO INPUT EACH DIGIT CORRECTLY.");
+	xt_par0(XT_CH_WHITE);
 
         //prompts asking how many of each to buy form the grocer
         xt_par2(XT_SET_ROW_COL_POS, row = 4, col = 1);
@@ -416,6 +529,8 @@ struct inv getInfo(struct inv myinv) {
         }
         if (c == KEY_F5) {
             xt_par0(XT_CLEAR_SCREEN);
+	    xt_par0(XT_BG_DEFAULT);
+	    xt_par0(XT_CH_DEFAULT);
             xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
             getkey_terminate();
         }
@@ -468,10 +583,12 @@ void play() {
     xt_par0(XT_CLEAR_SCREEN);
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     printf("Congratulations, you've earned $%G this past month. \nI hope you're proud of yourself.\n\n", myInv.money);
-    printf("Press F5 to exit.");
+    printf("Press F5 twice to exit.");
     while ((c == getkey()) == KEY_NOTHING);
     if (c == KEY_F5) {
         xt_par0(XT_CLEAR_SCREEN);
+	xt_par0(XT_BG_DEFAULT);
+	xt_par0(XT_CH_DEFAULT);
         xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
         getkey_terminate();
     }
@@ -481,9 +598,11 @@ void main() {
     int yesplay;
     int col, row, c;
     char *greeting = "\t\t***********************\n\t\tTHE LEMONADE STAND GAME\n\t\t***********************\n\n";
-    char *intro = "Hi! Welcome to Lemonsville, Florida! In this small town, you are in charge of\nrunning your own lemonade stand. \nIf you would like to start a new game, press F4.\nYou may press F5 at any time to terminate.";
+    char *intro = "Hi! Welcome to Lemonsville, Florida! In this small town, you are in charge of\nrunning your own lemonade stand. \nIf you would like to start a new game, press F4.\nYou may press F5 twice at any time to terminate.";
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     row = col = 1;
+    xt_par0(XT_BG_BLUE);
+    xt_par0(XT_CH_WHITE);
     xt_par0(XT_CLEAR_SCREEN);
     printf("%s", greeting);
     printf("%s", intro);
@@ -503,6 +622,8 @@ void main() {
     }
 
     xt_par0(XT_CLEAR_SCREEN);
+    xt_par0(XT_BG_DEFAULT);
+    xt_par0(XT_CH_DEFAULT);
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     getkey_terminate();
 }
