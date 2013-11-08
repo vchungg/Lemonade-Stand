@@ -7,7 +7,6 @@ Lemonade-Stand
   Victoria Chung
   Systems Level Programming
   Period 5
-------------------------
 -----------------------------------------------------
 
 ==============
@@ -34,7 +33,7 @@ Cups: You need these to hold the damn lemonade
 Controls
 ==============
 Respond to the prompts to answer how many of each you want to buy. Press enter to key in your response.
-Press F5 to exit the game.
+Press F5 twice to exit the game.
 
 
 
@@ -50,7 +49,7 @@ Garner as much money as you can within 30 days!
 ==============
 Bugs
 ==============
-As of now, there are problems regarding struct coding so the whole computer explodes if you try to run the program.
+Currently, the input aspect of the game does not work. The sell function does not take the correct factors into account. Also, the number of times you have to press F5 to get exit from the game sometimes varies.
 
 
 
@@ -59,7 +58,6 @@ As of now, there are problems regarding struct coding so the whole computer expl
 Abandoned Features
 ==============
 - Rotting ingredients
-- Cool-looking lemonade stand and avatar
 - Shop to decorate stand and avatar
 - Weather feature
 
