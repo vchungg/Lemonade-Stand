@@ -47,9 +47,10 @@ Garner as much money as you can within 30 days!
 
 
 ==============
-Bugs
+Bugs and Nonworking Features
 ==============
-Currently, the input aspect of the game does not work. The sell function does not take the correct factors into account. Also, the number of times you have to press F5 to get exit from the game sometimes varies.
+Currently, the input aspect of the game does not work. Also, the number of times you have to press F5 to get exit from the game sometimes varies. Not following the instructions (such as pressing F4 when it is unprompted) leads the player to improper displays.
+
 
 
 

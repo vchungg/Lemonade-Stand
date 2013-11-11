@@ -30,16 +30,27 @@ int mc(int numingredients, int percup) {
 
 //returns number of cups of lemonade sold for the day
 //parameters are number of ingredients per cup
-//needs to be refined
 int sell(struct inv myInv, int l, int s, int i, int price) {
-    int maxcups = MIN(
+    int minCups = MIN(
             MIN(mc(myInv.lemons, l),
             mc(myInv.sugar, s)),
             MIN(mc(myInv.icecubes, i),
             myInv.cups)
-            );
-    int soldcups = (rand() % maxcups / 2) + maxcups / 2;
-    return soldcups;
+		      );
+    int numCups = minCups * (2/3);
+    float fPrice = price;
+
+    while (price > 3.00 && numCups > 0){
+      price -= 0.25;
+      numCups--;
+    }
+    if (l < 2 && numCups > 0)
+      numCups--;
+    if (s < 4 && numCups > 0)
+      numCups--;
+    if (i < 3 && numCups > 0)
+      numCups--;
+    return numCups + (rand() % (minCups * (1/3)));
 }
 
 //kind of an introduction to how the game works
@@ -121,11 +132,14 @@ int instructions() {
     }
     while ((c = getkey()) == KEY_NOTHING);
     if (c == KEY_ENTER) {
-        char *start = "You will begin with $10.00 CASH. You already have a lemonade stand from \nyour mother, so you do not need to buy one.\nYou will have a stand out for a total of thirty days. Before each day you \nwill be advised of the weather forecast and be prompted to purchase ingredients\nPress enter twice to play.";
         xt_par0(XT_CLEAR_SCREEN);
         xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
-        printf("%s", start);
-        xt_par2(XT_SET_ROW_COL_POS, row = 7, col = 1);
+        printf("You will begin with $10.00 CASH. You already have a lemonade stand from \nyour mother, so you do not need to buy one.\n\n");
+	xt_par0(XT_CH_GREEN);
+	printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n\n");
+	xt_par0(XT_CH_WHITE);
+	printf("You will have a stand out for a total of thirty days. Before each day you \nwill be prompted to purchase ingredients\nPress enter twice to play.");
+        xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 1);
         while ((c = getkey()) == KEY_NOTHING);
         if (c == KEY_ENTER) {
             return 0;
@@ -281,16 +295,12 @@ struct inv getInfo(struct inv myinv) {
     printf("\t\t\t+++++++++++++++++++++++++++\n");
     printf("\t\t\t|");
     xt_par0(XT_BG_YELLOW);
-    printf("  WELCOME TO THE GROCER  ");
+    printf("  SAY HI TO THE GROCER!  ");
     xt_par0(XT_BG_BLUE);
     printf("|\n");
     printf("\t\t\t***************************\n");
     printf("\t\t\t|         ____            |\n");
-    printf("\t\t\t|        {");
-    xt_par0(XT_CH_RED);
-    printf("&&&&");
-    xt_par0(XT_CH_BLACK);
-    printf("}           |\n");
+    printf("\t\t\t|        {&&&&}           |\n");
     printf("\t\t\t|       |");
     xt_par0(XT_BG_YELLOW);
     printf(" $  $ ");
@@ -338,7 +348,7 @@ struct inv getInfo(struct inv myinv) {
 
         //warning: no backspace, too bad if you type wrong
         xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
-	xt_par0(XT_CH_MAGENTA);
+	xt_par0(XT_CH_YELLOW);
         printf("Make sure to input numbers only. Be sure to input the correct amount.\n");
         printf("If you input the wrong amount, and you do not have enough money to buy it,\nyour lemonade days are over. ");
 	xt_par0(XT_CH_RED);
@@ -583,6 +593,14 @@ void play() {
     xt_par0(XT_CLEAR_SCREEN);
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     printf("Congratulations, you've earned $%G this past month. \nI hope you're proud of yourself.\n\n", myInv.money);
+    printf("Here. Have a cookie for your hard work.\n");
+    xt_par0(XT_CH_BLACK);
+    printf("\t\t   ___   \n");
+    printf("\t\t  .* *.  \n");
+    printf("\t\t  | * *  \n");
+    printf("\t\t   *--   \n");
+    xt_par0(XT_CH_WHITE);
+    printf("It's oatmeal raisin. Enjoy.\n");
     printf("Press F5 twice to exit.");
     while ((c == getkey()) == KEY_NOTHING);
     if (c == KEY_F5) {
@@ -597,16 +615,31 @@ void play() {
 void main() {
     int yesplay;
     int col, row, c;
-    char *greeting = "\t\t***********************\n\t\tTHE LEMONADE STAND GAME\n\t\t***********************\n\n";
+    char *greeting = "\t\t\t***********************\n\t\t\tTHE LEMONADE STAND GAME\n\t\t\t***********************\n\n";
     char *intro = "Hi! Welcome to Lemonsville, Florida! In this small town, you are in charge of\nrunning your own lemonade stand. \nIf you would like to start a new game, press F4.\nYou may press F5 twice at any time to terminate.";
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     row = col = 1;
     xt_par0(XT_BG_BLUE);
-    xt_par0(XT_CH_WHITE);
     xt_par0(XT_CLEAR_SCREEN);
+    xt_par0(XT_BG_YELLOW);
+    xt_par0(XT_CH_GREEN);
     printf("%s", greeting);
-    printf("%s", intro);
-    xt_par2(XT_SET_ROW_COL_POS, row = 9, col = 1);
+    //drawing out a lemon
+    xt_par0(XT_BG_BLUE);
+    xt_par0(XT_CH_WHITE);
+    printf("%s\n\n\t\t\t\t ", intro);
+    xt_par0(XT_BG_YELLOW);
+    xt_par0(XT_CH_RED);
+    printf("----\n");
+    printf("\t\t\t\t-***$.\n");
+    xt_par0(XT_BG_BLUE);
+    printf("\t\t\t\t ");
+    xt_par0(XT_BG_YELLOW);
+    printf("---'\n");
+    xt_par0(XT_CH_WHITE);
+    xt_par0(XT_BG_BLUE);
+    //finished drawing the lemon
+    xt_par2(XT_SET_ROW_COL_POS, row = 14, col = 1);
 
     while (c != KEY_F5) {
         while ((c = getkey()) == KEY_NOTHING);
