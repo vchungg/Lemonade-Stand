@@ -280,7 +280,8 @@ struct inv getInfo(struct inv myinv) {
     printf("\n\n\n\t\t\t+++++++++++++++++++++++++++");
     printf("\n\t\t\t\t  DAY %d!  ", myinv.dayCounter);
     printf("\n\t\t\t+++++++++++++++++++++++++++\n");
-    usleep(3000000);
+    xt_par0(XT_BG_BLUE);
+    usleep(1000000);
 
     //displays prices
     xt_par0(XT_CLEAR_SCREEN);
@@ -572,12 +573,10 @@ struct inv getInfo(struct inv myinv) {
         }
     }
 
-
-
     while ((c = getkey()) == KEY_NOTHING);
     if (c == KEY_ENTER) {
         //checks to see if you have enough money to buy:
-        printf("%d, %d, %d, %d, %d, %d, %d, %d,", numLem, numIce, numSug, numCup, numPrice, lpercup, spercup, ipercup);
+        printf("\nConfirm these entries: %d, %d, %d, %d, %d, %d, %d, %d", numLem, numIce, numSug, numCup, numPrice, lpercup, spercup, ipercup);
         if (myInv.money > 0) {
             int wantToSpend = (numLem * .50) + (numIce * .10) + (numSug * .10) + (numCup * .05);
             if (wantToSpend > myInv.money) {
@@ -597,7 +596,8 @@ struct inv getInfo(struct inv myinv) {
 
         //sells the lemonade and puts the money earned into your inventory
         myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
-
+	int soldcups = sell(myInv, lpercup, spercup, ipercup, numPrice);
+	printf("\nYou've sold %d cups. That means you've earned %d dollars.", soldcups, soldcups * numPrice);
         return myInv;
     }
 }
