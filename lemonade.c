@@ -12,6 +12,7 @@
 #define MIN(x, y) (((x) > (y)) ? (x) : (y))
 
 //prepares yo fridge
+
 struct inv {
     int lemons;
     int sugar;
@@ -30,39 +31,23 @@ void noMoneyToBuy(int currentMoney, int wishMoney) {
     printf("If you would like to play again, please press F5 to hide your \nfailures and start a new game.");
 }
 
-
-//calculates how many cups can be made with specified ingredient
-//input number of ingredients possessed, number ingredients per cup
 int mc(int numingredients, int percup) {
-    return numingredients / percup;
+    int temp = numingredients % percup;
+    return (numingredients - temp) / percup;
 }
 
-//returns number of cups of lemonade sold for the day
-//parameters are number of ingredients per cup
 int sell(struct inv myInv, int l, int s, int i, int price) {
-    int minCups = MIN(
-            MIN(mc(myInv.lemons, l),
-            mc(myInv.sugar, s)),
-            MIN(mc(myInv.icecubes, i),
-            myInv.cups)
-                      );
-    int numCups = minCups * (2/3);
-    int fPrice = price;
-
-    while (price > 3 && numCups > 0){
-      price -= 0.25;
-      numCups--;
-    }
-    if (l < 2 && numCups > 0)
-      numCups--;
-    if (s < 4 && numCups > 0)
-      numCups--;
-    if (i < 3 && numCups > 0)
-      numCups--;
-    return numCups + (rand() % (minCups * (1/3)));
+    int numCups = mc(myInv.lemons, l);
+    if (numCups > mc(myInv.sugar, s))
+        numCups = mc(myInv.sugar, s);
+    if (numCups > mc(myInv.icecubes, i))
+        numCups = mc(myInv.icecubes, i);
+    if (numCups > myInv.cups)
+        numCups = myInv.cups;
+    return numCups;
 }
 
-//kind of an introduction to how the game works
+
 int instructions() {
     int col, row, c;
     char *instructions = "To manage your lemonade stand, you will need to make these decisions \nevery day:\n1. How many ingredients (including sugar cubes, ice cubes, cups, and\nlemons) to buy?\n2. What price to charge for each cup of lemonade?\nTo continue, press enter.";
@@ -169,105 +154,105 @@ void sunshine() {
 
     xt_par0(XT_CLEAR_SCREEN);
     while (col < 40) {
-      
-      xt_par0(XT_CH_YELLOW);
-      xt_par2(XT_SET_ROW_COL_POS, row, col);
-      printf("%s", sun);
-      xt_par2(XT_SET_ROW_COL_POS, row+1, col);
-      printf("%s",sol);
-      xt_par2(XT_SET_ROW_COL_POS, row+2, col);
-      printf("%s",sole);
-      xt_par2(XT_SET_ROW_COL_POS, row+3, col);
-      printf("%s",sunny);
-      xt_par2(XT_SET_ROW_COL_POS, row+4, col);
-      printf("%s", suny);
-        
-      row -= 2;
-      col += 10;
-      xt_par2(XT_SET_ROW_COL_POS, 12, 0);
-      xt_par0(XT_CH_RED);
-      printf("\t\t\t+|--------------------------|+\n");
-      printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
-      printf("\t\t\t+|==========================|+\n");
-      printf("\t\t\t+|+                        +|+\n");
-      printf("\t\t\t+|+         -------        +|+\n");
-      printf("\t\t\t+|+        |");
-      xt_par0(XT_BG_YELLOW);
-      printf(" 0   < ");
-      xt_par0(XT_BG_BLUE);
-      printf("|       +|+\n");
-      printf("\t\t\t+|+  |-|   |");
-      xt_par0(XT_BG_YELLOW);
-      printf("   u   ");
-      xt_par0(XT_BG_BLUE);
-      printf("|       +|+\n");
-      printf("\t\t\t+|+  |");
-      xt_par0(XT_BG_YELLOW);
-      printf(" ");
-      xt_par0(XT_BG_BLUE);
-      printf("|    |");
-      xt_par0(XT_BG_CYAN);
-      printf("-----");
-      xt_par0(XT_BG_BLUE);
-      printf("|        +|+\n");
-      printf("\t\t\t+============================+\n");
-      printf("\t\t\t++++++++++++++++++++++++++++++\n");
-      printf("\t\t\t++++++++++++++++++++++++++++++\n");
-      printf("\t\t\t+============================+\n");
-      usleep(100000);
-      xt_par0(XT_CLEAR_SCREEN);
+
+        xt_par0(XT_CH_YELLOW);
+        xt_par2(XT_SET_ROW_COL_POS, row, col);
+        printf("%s", sun);
+        xt_par2(XT_SET_ROW_COL_POS, row + 1, col);
+        printf("%s", sol);
+        xt_par2(XT_SET_ROW_COL_POS, row + 2, col);
+        printf("%s", sole);
+        xt_par2(XT_SET_ROW_COL_POS, row + 3, col);
+        printf("%s", sunny);
+        xt_par2(XT_SET_ROW_COL_POS, row + 4, col);
+        printf("%s", suny);
+
+        row -= 2;
+        col += 10;
+        xt_par2(XT_SET_ROW_COL_POS, 12, 0);
+        xt_par0(XT_CH_RED);
+        printf("\t\t\t+|--------------------------|+\n");
+        printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
+        printf("\t\t\t+|==========================|+\n");
+        printf("\t\t\t+|+                        +|+\n");
+        printf("\t\t\t+|+         -------        +|+\n");
+        printf("\t\t\t+|+        |");
+        xt_par0(XT_BG_YELLOW);
+        printf(" 0   < ");
+        xt_par0(XT_BG_BLUE);
+        printf("|       +|+\n");
+        printf("\t\t\t+|+  |-|   |");
+        xt_par0(XT_BG_YELLOW);
+        printf("   u   ");
+        xt_par0(XT_BG_BLUE);
+        printf("|       +|+\n");
+        printf("\t\t\t+|+  |");
+        xt_par0(XT_BG_YELLOW);
+        printf(" ");
+        xt_par0(XT_BG_BLUE);
+        printf("|    |");
+        xt_par0(XT_BG_CYAN);
+        printf("-----");
+        xt_par0(XT_BG_BLUE);
+        printf("|        +|+\n");
+        printf("\t\t\t+============================+\n");
+        printf("\t\t\t++++++++++++++++++++++++++++++\n");
+        printf("\t\t\t++++++++++++++++++++++++++++++\n");
+        printf("\t\t\t+============================+\n");
+        usleep(500000);
+        xt_par0(XT_CLEAR_SCREEN);
     }
     while (col > 40) {
 
-      xt_par0(XT_CH_YELLOW);
-      xt_par2(XT_SET_ROW_COL_POS, row, col);
-      printf("%s", sun);
-      xt_par2(XT_SET_ROW_COL_POS, row+1, col);
-      printf("%s",sol);
-      xt_par2(XT_SET_ROW_COL_POS, row+2, col);
-      printf("%s",sole);
-      xt_par2(XT_SET_ROW_COL_POS, row+3, col);
-      printf("%s",sunny);
-      xt_par2(XT_SET_ROW_COL_POS, row+4, col);
-      printf("%s", suny);
-      
-      row += 2;
-      col += 10;
-      xt_par2(XT_SET_ROW_COL_POS, 12, 0);
-      xt_par0(XT_CH_RED);
-      printf("\t\t\t+|--------------------------|+\n");
-      printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
-      printf("\t\t\t+|==========================|+\n");
-      printf("\t\t\t+|+                        +|+\n");
-      printf("\t\t\t+|+         -------        +|+\n");
-      printf("\t\t\t+|+        |");
-      xt_par0(XT_BG_YELLOW);
-      printf(" 0   < ");
-      xt_par0(XT_BG_BLUE);
-      printf("|       +|+\n");
-      printf("\t\t\t+|+  |-|   |");
-      xt_par0(XT_BG_YELLOW);
-      printf("   u   ");
-      xt_par0(XT_BG_BLUE);
-      printf("|       +|+\n");
-      printf("\t\t\t+|+  |");
-      xt_par0(XT_BG_YELLOW);
-      printf(" ");
-      xt_par0(XT_BG_BLUE);
-      printf("|    |");
-      xt_par0(XT_BG_CYAN);
-      printf("-----");
-      xt_par0(XT_BG_BLUE);
-      printf("|        +|+\n");
-      printf("\t\t\t+============================+\n");
-      printf("\t\t\t++++++++++++++++++++++++++++++\n");
-      printf("\t\t\t++++++++++++++++++++++++++++++\n");
-      printf("\t\t\t+============================+\n");
-      usleep(100000);
-      xt_par0(XT_CLEAR_SCREEN);
-      if (row == 10) {
-        break;
-      }
+        xt_par0(XT_CH_YELLOW);
+        xt_par2(XT_SET_ROW_COL_POS, row, col);
+        printf("%s", sun);
+        xt_par2(XT_SET_ROW_COL_POS, row + 1, col);
+        printf("%s", sol);
+        xt_par2(XT_SET_ROW_COL_POS, row + 2, col);
+        printf("%s", sole);
+        xt_par2(XT_SET_ROW_COL_POS, row + 3, col);
+        printf("%s", sunny);
+        xt_par2(XT_SET_ROW_COL_POS, row + 4, col);
+        printf("%s", suny);
+
+        row += 2;
+        col += 10;
+        xt_par2(XT_SET_ROW_COL_POS, 12, 0);
+        xt_par0(XT_CH_RED);
+        printf("\t\t\t+|--------------------------|+\n");
+        printf("\t\t\t+|+++YOUR LEMONADE STAND++++|+\n");
+        printf("\t\t\t+|==========================|+\n");
+        printf("\t\t\t+|+                        +|+\n");
+        printf("\t\t\t+|+         -------        +|+\n");
+        printf("\t\t\t+|+        |");
+        xt_par0(XT_BG_YELLOW);
+        printf(" 0   < ");
+        xt_par0(XT_BG_BLUE);
+        printf("|       +|+\n");
+        printf("\t\t\t+|+  |-|   |");
+        xt_par0(XT_BG_YELLOW);
+        printf("   u   ");
+        xt_par0(XT_BG_BLUE);
+        printf("|       +|+\n");
+        printf("\t\t\t+|+  |");
+        xt_par0(XT_BG_YELLOW);
+        printf(" ");
+        xt_par0(XT_BG_BLUE);
+        printf("|    |");
+        xt_par0(XT_BG_CYAN);
+        printf("-----");
+        xt_par0(XT_BG_BLUE);
+        printf("|        +|+\n");
+        printf("\t\t\t+============================+\n");
+        printf("\t\t\t++++++++++++++++++++++++++++++\n");
+        printf("\t\t\t++++++++++++++++++++++++++++++\n");
+        printf("\t\t\t+============================+\n");
+        usleep(500000);
+        xt_par0(XT_CLEAR_SCREEN);
+        if (row == 10) {
+            break;
+        }
     }
     xt_par0(XT_CH_WHITE);
 }
@@ -287,6 +272,15 @@ struct inv getInfo(struct inv myinv) {
     int cupsCounter = 0;
     int priceCounter = 0, lpcCounter = 0, spcCounter = 0, ipcCounter = 0;
 
+    //displays current day number
+    xt_par0(XT_CLEAR_SCREEN);
+    xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
+    xt_par0(XT_CH_BLACK);
+    xt_par0(XT_BG_YELLOW);
+    printf("\n\n\n\t\t\t+++++++++++++++++++++++++++");
+    printf("\n\t\t\t\t  DAY %d!  ", myinv.dayCounter);
+    printf("\n\t\t\t+++++++++++++++++++++++++++\n");
+    usleep(3000000);
 
     //displays prices
     xt_par0(XT_CLEAR_SCREEN);
@@ -340,6 +334,15 @@ struct inv getInfo(struct inv myinv) {
     printf("\t\t\tMoney: %G\n", myInv.money);
     printf("Press enter to continue.\n");
 
+    while ((c = getkey()) == KEY_NOTHING);
+    if (c == KEY_F5) {
+        xt_par0(XT_BG_DEFAULT);
+        xt_par0(XT_CH_DEFAULT);
+        xt_par0(XT_CLEAR_SCREEN);
+        xt_par0(XT_BG_DEFAULT);
+        xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
+        getkey_terminate();
+    }
 
     while ((c = getkey()) == KEY_NOTHING);
     if (c == KEY_ENTER) {
@@ -381,13 +384,13 @@ struct inv getInfo(struct inv myinv) {
         xt_par2(XT_SET_ROW_COL_POS, row = 18, col = 1);
         char *setSugar = "How many cubes of sugar would you like to purchase? ";
         printf("%s", setSugar);
-	
-	
+
+
         //entering in the bought ingredients to inventory
         //sets how many lemons to buy
         xt_par2(XT_SET_ROW_COL_POS, row = 4, col = 45); //moves cursor
         while (1) {
-	  while ((c = getkey()) == KEY_NOTHING);
+            while ((c = getkey()) == KEY_NOTHING);
             if (c == KEY_F5) {
                 return;
             }
@@ -432,20 +435,20 @@ struct inv getInfo(struct inv myinv) {
         xt_par2(XT_SET_ROW_COL_POS, row = 8, col = 43);
         while (1) {
             if (c == KEY_F5) {
-	      return;
+                return;
             }
             while ((c = getkey()) == KEY_NOTHING);
             if (c >= '0' && c <= '9') {
-	      cups[cupsCounter] = c - '0';
-	      putchar(c);
-	      if (col < 80)
-		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
-	      cupsCounter++;
+                cups[cupsCounter] = c - '0';
+                putchar(c);
+                if (col < 80)
+                    xt_par2(XT_SET_ROW_COL_POS, row, ++col);
+                cupsCounter++;
             }
             if (c == KEY_ENTER) {
-	      int x;
+                int x;
                 for (x = 0; x < cupsCounter; x++) {
-		  numCup += cups[x] * (pow(10, cupsCounter - 1 - x));
+                    numCup += cups[x] * (pow(10, cupsCounter - 1 - x));
                 }
                 break;
             }
@@ -454,30 +457,30 @@ struct inv getInfo(struct inv myinv) {
         xt_par2(XT_SET_ROW_COL_POS, row = 10, col = 57);
         while (1) {
             if (c == KEY_F5) {
-	      return;
+                return;
             }
             while ((c = getkey()) == KEY_NOTHING);
             if (c >= '0' && c <= '9') {
-	      sugar[sugarCounter] = c - '0';
-	      putchar(c);
-	      if (col < 80)
-		xt_par2(XT_SET_ROW_COL_POS, row, ++col);
+                sugar[sugarCounter] = c - '0';
+                putchar(c);
+                if (col < 80)
+                    xt_par2(XT_SET_ROW_COL_POS, row, ++col);
                 sugarCounter++;
             }
             if (c == KEY_ENTER) {
-	      int x;
-	      for (x = 0; x < sugarCounter; x++) {
-		numSug += sugar[x] * (pow(10, sugarCounter - 1 - x));
-	      }
-	      break;
+                int x;
+                for (x = 0; x < sugarCounter; x++) {
+                    numSug += sugar[x] * (pow(10, sugarCounter - 1 - x));
+                }
+                break;
             }
         }
-	
+
         //set price for each cup
         xt_par2(XT_SET_ROW_COL_POS, row = 12, col = 44);
         while (1) {
-	  if (c == KEY_F5) {
-	    return;
+            if (c == KEY_F5) {
+                return;
             }
             while ((c = getkey()) == KEY_NOTHING);
             if (c >= '0' && c <= '9') {
@@ -569,30 +572,33 @@ struct inv getInfo(struct inv myinv) {
         }
     }
 
+
+
     while ((c = getkey()) == KEY_NOTHING);
     if (c == KEY_ENTER) {
-      //checks to see if you have enough money to buy:
-      printf("%d, %d, %d, %d, %d, %d, %d, %d,", numLem, numIce, numSug, numCup, numPrice, lpercup, spercup, ipercup);
-      if (myInv.money > 0) {
-	int wantToSpend = (numLem * .50) + (numIce * .10) + (numSug * .10) + (numCup * .05);
-	if (wantToSpend > myInv.money) {
-	  noMoneyToBuy(myInv.money, wantToSpend);
-	}
-      }
-      
-      //update inventory using the information (maybe want to update in code above some error message if the player tries to buy more than he/she can afford to
-      if ((numLem * .50) + (numIce * .10) + (numSug * .10) + (numCup * .05) < myInv.money) {
-	myInv.cups += numCup;
-	myInv.icecubes += numIce;
-	myInv.lemons += numLem;
-	myInv.sugar += numSug;
-      }
-      //    sunshine();
-      
-      //sells the lemonade and puts the money earned into your inventory
-      myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
-      
-      return myInv;
+        //checks to see if you have enough money to buy:
+        printf("%d, %d, %d, %d, %d, %d, %d, %d,", numLem, numIce, numSug, numCup, numPrice, lpercup, spercup, ipercup);
+        if (myInv.money > 0) {
+            int wantToSpend = (numLem * .50) + (numIce * .10) + (numSug * .10) + (numCup * .05);
+            if (wantToSpend > myInv.money) {
+                noMoneyToBuy(myInv.money, wantToSpend);
+            }
+        }
+
+
+        //update inventory using the information (maybe want to update in code above some error message if the player tries to buy more than he/she can afford to
+        if ((numLem * .50) + (numIce * .10) + (numSug * .10) + (numCup * .05) < myInv.money) {
+            myInv.cups += numCup;
+            myInv.icecubes += numIce;
+            myInv.lemons += numLem;
+            myInv.sugar += numSug;
+        }
+        sunshine();
+
+        //sells the lemonade and puts the money earned into your inventory
+        myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
+
+        return myInv;
     }
 }
 
@@ -607,8 +613,13 @@ void play() {
     myInv.dayCounter = 1;
     while (myInv.dayCounter < 31) {
         myInv = getInfo(myInv);
+        xt_par0(XT_CLEAR_SCREEN);
+        xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
+        printf("GOES BACK TO PLAY ");
         myInv.dayCounter++;
     }
+    xt_par0(XT_CLEAR_SCREEN);
+    xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     printf("Summer is now over and lemonade is not needed.");
     //game over
     xt_par0(XT_CLEAR_SCREEN);
@@ -667,7 +678,6 @@ void main() {
         if (c == KEY_F5) {
             break;
         } else if (c == KEY_F4) {
-            sunshine();
             instructions();
         } else if (c == KEY_ENTER) {
             play();
