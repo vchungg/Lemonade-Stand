@@ -587,13 +587,13 @@ struct inv getInfo(struct inv myinv) {
 	myInv.lemons += numLem;
 	myInv.sugar += numSug;
       }
+      //    sunshine();
+      
+      //sells the lemonade and puts the money earned into your inventory
+      myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
+      
+      return myInv;
     }
-    //    sunshine();
-    
-    //sells the lemonade and puts the money earned into your inventory
-    myInv.money += numPrice * sell(myInv, lpercup, spercup, ipercup, numPrice);
-    
-    return myInv;
 }
 
 void play() {
