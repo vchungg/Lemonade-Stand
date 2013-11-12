@@ -26,7 +26,7 @@ void noMoneyToBuy(int currentMoney, int wishMoney) {
     xt_par0(XT_CLEAR_SCREEN);
     xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
     printf("You only have this much money: %d, but wish to buy %d worth \nof goods.", currentMoney, wishMoney);
-    printf("Unfortunately, the supermarket refuses to do business with \npaupers. Please contact Bill de Blasio for more tax cuts if you need \nmore money.");
+    printf("Unfortunately, the supermarket refuses to do business with \npaupers. Please contact the new mayor Bill de Blasio for more tax \ncuts if you need more money.");
     printf("If you would like to play again, please press F5 to hide your \nfailures and start a new game.");
 }
 
@@ -47,9 +47,9 @@ int sell(struct inv myInv, int l, int s, int i, int price) {
             myInv.cups)
                       );
     int numCups = minCups * (2/3);
-    float fPrice = price;
+    int fPrice = price;
 
-    while (price > 3.00 && numCups > 0){
+    while (price > 3 && numCups > 0){
       price -= 0.25;
       numCups--;
     }
@@ -155,15 +155,6 @@ int instructions() {
         } else
             return 1;
     }
-}
-
-void noMoneyToBuy(int currentMoney, int wishMoney) {
-    int c, row, col;
-    xt_par0(XT_CLEAR_SCREEN);
-    xt_par2(XT_SET_ROW_COL_POS, row = 1, col = 1);
-    printf("You only have this much money: %d, but wish to buy %d worth \nof goods.", currentMoney, wishMoney);
-    printf("Unfortunately, the supermarket refuses to do business with \npaupers. Please contact Bill de Blasio for more tax cuts if you need \nmore money.");
-    printf("If you would like to play again, please press F5 to hide your \nfailures and start a new game.");
 }
 
 void sunshine() {
@@ -288,7 +279,7 @@ struct inv getInfo(struct inv myinv) {
     struct inv myInv = myinv;
 
     // buying ingredients initialization
-    int numLem, numIce, numSug, numCup, numPrice, lpercup, spercup, ipercup;
+    int numLem = 0, numIce = 0, numSug = 0, numCup = 0, numPrice = 0, lpercup = 0, spercup = 0, ipercup = 0;
     char lemons[10], ice[10], sugar[10], cups[10], price[10], lcup[10], scup[10], icup[10];
     int lemonsCounter = 0;
     int iceCounter = 0;
@@ -389,7 +380,7 @@ struct inv getInfo(struct inv myinv) {
         printf("%s", setIce);
         xt_par2(XT_SET_ROW_COL_POS, row = 18, col = 1);
         char *setSugar = "How many cubes of sugar would you like to purchase? ";
-        printf("%s", setSugar`);
+        printf("%s", setSugar);
 	
 	
         //entering in the bought ingredients to inventory
