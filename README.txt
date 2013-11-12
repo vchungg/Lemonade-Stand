@@ -49,7 +49,7 @@ Garner as much money as you can within 30 days!
 ==============
 Bugs and Nonworking Features
 ==============
-The number of times you have to press F5 to get exit from the game sometimes varies. Not following the instructions (such as pressing F4 when it is unprompted) leads the player to the wrong displays.
+The number of times you have to press F5 to get exit from the game sometimes varies. Not following the instructions (such as pressing F4 when it is unprompted) leads the player to the wrong displays. Also, I'm pretty sure the ingredients addition and losing money aspect is pretty inaccurate.
 
 
 
